@@ -31,3 +31,9 @@ class TestLoggedUserMainPage(BaseTest):
     def test_user_check_url(self, user_login):
         self.main_page.open()
         self.main_page.check_url_(MAIN_PAGE_URL)
+
+
+class TestTest(BaseTest):
+    def test_test(self):
+        self.main_page.open()
+        self.main_page.check_url_(MAIN_PAGE_URL)
