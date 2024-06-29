@@ -20,47 +20,45 @@
 
 1. **Клонируйте репозиторий:**
 
-   ```bash
-
+    ```bash
+    git clone https://github.com/IrinaFrutiz/LumaProject
      ```
 
 2. **Создайте и активируйте виртуальное окружение:**
 
-Для venv:
-
     ```bash
     python -m venv venv
-    source venv/bin/activate   # Для Linux/macOS
-    venv/Scripts/activate.ps1    # Для Windows
     ```
-
-Для pipenv:
-
+    
+    Для Linux/macOS:
     ```bash
-    pipenv shell
+    source venv/bin/activate
     ```
-
-3. **Установите зависимости:**
+   
+   Для Windows:
+   ```bash
+    venv/Scripts/activate.ps1
+    ```
+   
+4. **Установите зависимости:**
 
     ```bash
     pip install -r requirements.txt
    ```
 
-4. **Запуск тестов**
+5. **Запуск тестов**
    Для того, чтобы запустить все тесты, выполните следующую команду в корне проекта:
 
     ```bash
     pytest
     ```
 
-Для запуска тестов с генерацией отчета Allure:
+   Для запуска тестов с генерацией отчета Allure:
 
 Установите Allure CLI. Запустите тесты с генерацией отчета:
 
-    ```bash
     pytest --alluredir=allure-results
     allure serve allure-results
-    ```
 
 ## Структура тестов
 
