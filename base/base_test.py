@@ -19,3 +19,4 @@ class BaseTest:
     @staticmethod
     def hello():
         print("Hello")
+
