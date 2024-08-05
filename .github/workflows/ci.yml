@@ -157,15 +157,15 @@ jobs:
     name: Report publication
     steps:
 #        only history without content of allure-results
-      - name: Download _site workflow run artifact
-        uses: actions/download-artifact@v3
-#        with:
-#          name: _site
-#          path:
-#            _site
-##        full history version with all content of allure-results saved between runs - very slow
-#      - name: Download all workflow run artifacts
+#      - name: Download _site workflow run artifact
 #        uses: actions/download-artifact@v3
+##        with:
+##          name: _site
+##          path:
+##            _site
+##        full history version with all content of allure-results saved between runs - very slow
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
