@@ -11,6 +11,7 @@ def browser(request):
     options_chrome.add_argument("--headless")
     options_chrome.add_argument("--no-sandbox")
     options_chrome.add_argument("--disable-dev-shm-usage")
+    options_chrome.add_argument("--disable-search-engine-choice-screen")
     browser = webdriver.Chrome(
         options=options_chrome)
 
