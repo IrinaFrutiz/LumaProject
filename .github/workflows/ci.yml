@@ -94,7 +94,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest -n2 --reruns=5
+          pytest
         env:
           CI_RUN: true
           PYTHONDONTWRITEBYTECODE: 1
@@ -117,7 +117,7 @@ jobs:
           name: allure-results
           path:
             allure-results
-          retention-days: 1
+          retention-days: 10
 
   generate-report:
     if: always()
@@ -148,7 +148,7 @@ jobs:
           name: _site
           path:
             _site
-          retention-days: 1
+          retention-days: 10
 
   publish-report:
     if: always()
