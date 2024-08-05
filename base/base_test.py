@@ -15,8 +15,3 @@ class BaseTest:
         request.cls.main_page = MainPage(browser)
         request.cls.login_page = LoginPage(browser)
         request.cls.create_account_page = CreateAccountPage(browser)
-
-    @staticmethod
-    def hello():
-        print("Hello")
-
