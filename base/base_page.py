@@ -46,3 +46,7 @@ class BasePage:
     def check_url_(self, url):
         assert self.browser.current_url == url, \
             f"Current URL {self.browser.current_url} is not equal {url}"
+
+    @allure.step("Check URL")
+    def check_url_is_(self, url):
+        return self.browser.current_url == url
