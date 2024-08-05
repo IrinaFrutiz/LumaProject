@@ -108,7 +108,7 @@ jobs:
           name: driver-report
           path: 
             driver-report
-          retention-days: 1
+          retention-days: 10
         
       - name: Store allure results
         uses: actions/upload-artifact@v3
