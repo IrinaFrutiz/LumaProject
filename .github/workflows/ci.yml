@@ -94,7 +94,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest -n2 --reruns=5
+          pytest
         env:
           CI_RUN: true
           PYTHONDONTWRITEBYTECODE: 1
@@ -108,7 +108,7 @@ jobs:
           name: driver-report
           path: 
             driver-report
-          retention-days: 1
+          retention-days: 10
         
       - name: Store allure results
         uses: actions/upload-artifact@v3
@@ -117,7 +117,7 @@ jobs:
           name: allure-results
           path:
             allure-results
-          retention-days: 1
+          retention-days: 10
 
   generate-report:
     if: always()
@@ -128,12 +128,11 @@ jobs:
       - name: Install JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'corretto'
+          distribution: 'microsoft'
           java-version: '17'
 
       - name: Install allure
-        run: |
-          sudo wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.tgz && sudo tar -zxvf allure-2.29.0.tgz -C /opt/ && sudo ln -s /opt/allure-2.29.0/bin/allure /usr/bin/allure
+      - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz && sudo tar -zxvf allure-2.23.1.tgz -C /opt/ && sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
 
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
@@ -148,7 +147,7 @@ jobs:
           name: _site
           path:
             _site
-          retention-days: 1
+          retention-days: 10
 
   publish-report:
     if: always()
@@ -157,15 +156,15 @@ jobs:
     name: Report publication
     steps:
 #        only history without content of allure-results
-      - name: Download _site workflow run artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: _site
-          path:
-            _site
-##        full history version with all content of allure-results saved between runs - very slow
-#      - name: Download all workflow run artifacts
+#      - name: Download _site workflow run artifact
 #        uses: actions/download-artifact@v3
+##        with:
+##          name: _site
+##          path:
+##            _site
+##        full history version with all content of allure-results saved between runs - very slow
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
