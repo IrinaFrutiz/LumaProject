@@ -17,7 +17,7 @@ class TestMainPage(BaseTest):
             f"Current URL {self.main_page.get_url()} is not equal {MAIN_PAGE_URL}"
         # вариант два: писать ассерты в функциях
         self.main_page.check_url_(MAIN_PAGE_URL)
-        # вариант 3: функция возвращает только тру/фолс
+        # вариант 3: функция возвращает только тру/фолс, а ассерт в тесте
         assert self.main_page.check_url_is_(MAIN_PAGE_URL), \
             f"Current URL is not equal {MAIN_PAGE_URL}"
 
