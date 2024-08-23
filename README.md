@@ -60,6 +60,10 @@
     pytest --alluredir=allure-results
     allure serve allure-results
 
+## Allure report on GitHub
+
+Посмотреть последний репорт можно по ссылке: https://irinafrutiz.github.io/LumaProject/
+
 ## Структура тестов
 
 Тесты разделены на логические группы и находятся в соответствующих файлах внутри директории tests/.
