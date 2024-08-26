@@ -38,15 +38,6 @@ class BasePage:
     def get_text(self, locator):
         return self.find(locator).text
 
-    @allure.step("Get URL")
-    def get_url(self):
-        return self.browser.current_url
-
-    @allure.step("Check URL")
-    def check_url_(self, url):
-        assert self.browser.current_url == url, \
-            f"Current URL {self.browser.current_url} is not equal {url}"
-
     @allure.step("Check URL")
     def check_url_is_(self, url):
         return self.browser.current_url == url

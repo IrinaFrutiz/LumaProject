@@ -12,12 +12,6 @@ class TestMainPage(BaseTest):
     @pytest.mark.smoke
     def test_check_url(self):
         self.main_page.open()
-        # вариант адын: писать ассерты в тесте
-        assert self.main_page.get_url() == MAIN_PAGE_URL, \
-            f"Current URL {self.main_page.get_url()} is not equal {MAIN_PAGE_URL}"
-        # вариант два: писать ассерты в функциях
-        self.main_page.check_url_(MAIN_PAGE_URL)
-        # вариант 3: функция возвращает только тру/фолс, а ассерт в тесте
         assert self.main_page.check_url_is_(MAIN_PAGE_URL), \
             f"Current URL is not equal {MAIN_PAGE_URL}"
 
@@ -33,4 +27,4 @@ class TestLoggedUserMainPage(BaseTest):
     @allure.link('some link')
     def test_user_check_url(self, user_login):
         self.main_page.open()
-        self.main_page.check_url_(MAIN_PAGE_URL)
+        self.main_page.check_url_is_(MAIN_PAGE_URL)
