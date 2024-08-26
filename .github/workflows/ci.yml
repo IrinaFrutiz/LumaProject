@@ -74,8 +74,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install requirements
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
+
+      - name: Set variable
+        run: echo APP_ID=${{ secrets.APP_ID }} > .env
+
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
 
       - name: Run tests
         run: pytest --alluredir="allure-results"
