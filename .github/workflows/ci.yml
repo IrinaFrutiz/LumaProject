@@ -21,12 +21,11 @@ jobs:
           python-version: "3.11"
 
       - name: Get previous run artifact
-        run: |
-          set -euo pipefail
-          ARTIFACT_ID=$(curl -L \
-          -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          "https://api.github.com/repos/${{ github.repository }}/actions/artifacts?name=allure-results" \
+        run: >
+          ARTIFACT_ID=$(curl -L 
+          -H "Accept: application/vnd.github+json" 
+          -H "X-GitHub-Api-Version: 2022-11-28" 
+          "https://api.github.com/repos/${{ github.repository }}/actions/artifacts?name=allure-results" 
           | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
           &&
           curl -L 
@@ -47,13 +46,9 @@ jobs:
           -H "X-GitHub-Api-Version: 2022-11-28"
           https://api.github.com/repos/${{ github.repository }}/actions/artifacts/$REPORT_ID/zip
           -o pages.zip
-        continue-on-error: true
-      - run: mkdir allure-results && unzip artifacts.zip -d allure-results
-        continue-on-error: true
-      - run: mkdir allure-results old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
-        continue-on-error: true
-      - run: cp -r pages_history/history allure-results
-        continue-on-error: true
+      - run: mkdir allure-results && unzip artifacts.zip -d allure-results ||true
+      - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history ||true
+      - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results ||true
       - name: Store allure history
         uses: actions/upload-artifact@v3
         with:
