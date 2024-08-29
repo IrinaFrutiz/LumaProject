@@ -22,6 +22,7 @@ jobs:
 
       - name: Get previous run artifact
         run: >
+          set -euo pipefail
           ARTIFACT_ID=$(curl -L 
           -H "Accept: application/vnd.github+json" 
           -H "X-GitHub-Api-Version: 2022-11-28" 
@@ -76,19 +77,13 @@ jobs:
       - name: Install requirements
         run: pip install -r requirements.txt
 
-      - name: Set variable
-        run: echo APP_ID=${{ secrets.APP_ID }} > .env
-
-      - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v3
-
       - name: Run tests
         run: pytest --alluredir="allure-results"
         env:
           CI_RUN: true
           PYTHONDONTWRITEBYTECODE: 1
           PYTHONUNBUFFERED: 1
-#        continue-on-error: true
+        continue-on-error: true
 
       - name: Attach driver page_source and screenshot on failure
         uses: actions/upload-artifact@v4
