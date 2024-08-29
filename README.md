@@ -62,7 +62,7 @@
 
 ## Allure report on GitHub
 
-Посмотреть последний репорт можно по ссылке: https://irinafrutiz.github.io/LumaProject/
+Посмотреть последний репорт можно по [ссылке](https://irinafrutiz.github.io/LumaProject/).
 
 ## Структура тестов
 
