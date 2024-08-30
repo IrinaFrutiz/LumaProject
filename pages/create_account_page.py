@@ -21,3 +21,7 @@ class CreateAccountPage(BasePage):
         self.field_form(FIELD_PASSWORD, "balblabla@email.com123!")
         self.field_form(FIELD_PASSWORD_CONFIRMATION, "balblabla@email.com123!")
         self.click_button(BTN_CREATE_AN_ACCOUNT)
+
+    @allure.step("Check Create An Account Button Displays")
+    def check_btn_create_an_account_displays(self):
+        return bool(self.check_element_visibility_(BTN_CREATE_AN_ACCOUNT))
