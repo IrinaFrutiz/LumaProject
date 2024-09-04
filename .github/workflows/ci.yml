@@ -124,9 +124,9 @@ jobs:
       - name: Store generated report
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
+          name: _site
           path:
-            allure-results
+            _site
           retention-days: 10
 
   publish-report:
