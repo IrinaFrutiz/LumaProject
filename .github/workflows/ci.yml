@@ -139,7 +139,7 @@ jobs:
             _site
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
 
       - name: Deploy to gitHub Pages
         id: deployment
