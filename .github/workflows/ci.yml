@@ -4,10 +4,37 @@ on:
   pull_request:
     branches: [main]
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 
 jobs:
   download-history:
@@ -26,7 +53,7 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           "https://api.github.com/repos/${{ github.repository }}/actions/artifacts?name=allure-results" \
-          | python -c "import sys, json; artifacts = json.load(sys.stdin)['artifacts']; print(artifacts[0]['id'] if artifacts else 'No artifacts found');") && \
+          | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") && \
           echo "Artifact ID: $ARTIFACT_ID" && \
           if [ "$ARTIFACT_ID" = "No artifacts found" ]; then exit 1; fi && \
           curl -L \
@@ -34,20 +61,12 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.TOKEN }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip \
-          -o artifacts.zip
-
-      - name: Check if artifacts.zip is valid
-        run: unzip -t artifacts.zip || echo "Artifacts zip is invalid"
-
-      - run: mkdir allure-results && unzip artifacts.zip -d allure-results || true
-
-      - name: Get previous pages artifact
-        run: |
+          -o artifacts.zip && \
           REPORT_ID=$(curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           "https://api.github.com/repos/${{ github.repository }}/actions/artifacts?name=github-pages" \
-          | python -c "import sys, json; artifacts = json.load(sys.stdin)['artifacts']; print(artifacts[0]['id'] if artifacts else 'No artifacts found');") && \
+          | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") && \
           echo "Report ID: $REPORT_ID" && \
           if [ "$REPORT_ID" = "No artifacts found" ]; then exit 1; fi && \
           curl -L \
@@ -57,8 +76,9 @@ jobs:
           https://api.github.com/repos/${{ github.repository }}/actions/artifacts/$REPORT_ID/zip \
           -o pages.zip
 
-      - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history || true
-      - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results || true
+      - run: mkdir allure-results && unzip artifacts.zip -d allure-results ||true
+      - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history ||true
+      - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results ||true
 
       - name: Check if allure-results is not empty
         run: test -n "$(ls -A allure-results)" || echo "No Allure results found"
@@ -69,6 +89,7 @@ jobs:
         with:
           name: allure-results
           path: allure-results
+
           retention-days: 10
 
 
@@ -92,9 +113,29 @@ jobs:
         run: sudo apt-get install google-chrome-stable
 
       - name: Install requirements
+
+
+
+
+
+
+
+
+
+
+
+
+
         run: pip install -r requirements.txt
 
       - name: Run tests
+
+
+
+
+
+
+
         run: pytest --alluredir="allure-results"
         env:
           CI_RUN: true
@@ -102,14 +143,103 @@ jobs:
           PYTHONUNBUFFERED: 1
         continue-on-error: true
 
+
       - name: Check if allure-results is not empty
         run: test -n "$(ls -A allure-results)" || echo "No Allure results found"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         continue-on-error: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       - name: Store allure results
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
+
           path: allure-results
           retention-days: 10
 
@@ -139,6 +269,7 @@ jobs:
         with:
           name: _site
           path: _site
+
           retention-days: 10
 
 
@@ -149,9 +280,6 @@ jobs:
     steps:
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
-        with:
-          name: _site
-          path: _site
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
