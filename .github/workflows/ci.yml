@@ -60,7 +60,7 @@ jobs:
         continue-on-error: true
 
       - name: Store allure history
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path:
@@ -94,10 +94,10 @@ jobs:
 
       - name: Run tests
         run: pytest --alluredir="allure-results"
-        env:
-          CI_RUN: true
-          PYTHONDONTWRITEBYTECODE: 1
-          PYTHONUNBUFFERED: 1
+#        env:
+#          CI_RUN: true
+#          PYTHONDONTWRITEBYTECODE: 1
+#          PYTHONUNBUFFERED: 1
         continue-on-error: true
         
       - name: Store allure results
