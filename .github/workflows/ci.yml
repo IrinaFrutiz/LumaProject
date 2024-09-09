@@ -49,6 +49,10 @@ jobs:
       - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history ||true
       - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results ||true
 
+      - name: Check if allure-results is not empty
+        run: test -n "$(ls -A allure-results)" || echo "No Allure results found"
+        continue-on-error: true
+
       - name: Store allure history
         uses: actions/upload-artifact@v4
         with:
@@ -56,6 +60,8 @@ jobs:
           path:
             allure-results
           retention-days: 10
+
+
   test:
     name: 'Run tests'
     needs: download-history
@@ -88,7 +94,11 @@ jobs:
           PYTHONDONTWRITEBYTECODE: 1
           PYTHONUNBUFFERED: 1
         continue-on-error: true
-        
+
+      - name: Check if allure-results is not empty
+        run: test -n "$(ls -A allure-results)" || echo "No Allure results found"
+        continue-on-error: true
+
       - name: Store allure results
         uses: actions/upload-artifact@v4
         with:
@@ -96,6 +106,7 @@ jobs:
           path:
             allure-results
           retention-days: 10
+
 
   generate-report:
     runs-on: ubuntu-latest
@@ -124,6 +135,7 @@ jobs:
           path:
             _site
           retention-days: 10
+
 
   publish-report:
     runs-on: ubuntu-latest
