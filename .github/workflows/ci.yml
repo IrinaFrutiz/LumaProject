@@ -2,39 +2,12 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    branches: [ main ]
 
 permissions:
   contents: read
   pages: write
   id-token: write
-
 
 jobs:
   download-history:
@@ -45,7 +18,7 @@ jobs:
       - name: setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: "3.10"
 
       - name: Get previous run artifact
         run: |
@@ -107,34 +80,16 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
       - name: Install Chrome
         run: sudo apt-get install google-chrome-stable
 
       - name: Install requirements
 
-
-
-
-
-
-
-
-
-
-
-
-
         run: pip install -r requirements.txt
 
       - name: Run tests
-
-
-
-
-
-
 
         run: pytest --alluredir="allure-results"
         env:
@@ -143,97 +98,9 @@ jobs:
           PYTHONUNBUFFERED: 1
         continue-on-error: true
 
-
       - name: Check if allure-results is not empty
         run: test -n "$(ls -A allure-results)" || echo "No Allure results found"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         continue-on-error: true
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       - name: Store allure results
         uses: actions/upload-artifact@v4
