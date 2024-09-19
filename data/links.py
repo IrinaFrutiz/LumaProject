@@ -1,3 +1,5 @@
+import random
+
 BASE_URL = 'https://magento.softwaretestingboard.com'
 MAIN_PAGE_URL = BASE_URL + '/'
 LOGIN_URL = BASE_URL + '/customer/account/login'
@@ -60,4 +62,6 @@ PAYMENT_URL = BASE_URL + "/checkout/#payment"
 SOFTWARE_TESTING_BOARD_URL = BASE_URL + "/magento-store-notes/?utm_source=magento_store&utm_medium=banner&utm_" \
                                         "campaign=notes_promo&utm_id=notes_promotion"
 
-random_product_url = BASE_URL + '/antonia-racer-tank.html'
+CORPORATION_LIST_URL = BASE_URL + '/catalog/product_compare/'
+
+random_product_url = BASE_URL + random.choice(['/antonia-racer-tank.html', '/radiant-tee.html'])
