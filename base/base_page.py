@@ -36,7 +36,12 @@ class BasePage:
 
     @allure.step("Click a button")
     def click_button(self, locator):
-        self.find(locator).click()
+        self.wait.until(EC.element_to_be_clickable(locator)).click()
+
+    @allure.step("Click all the buttons")
+    def click_all_buttons(self, locator):
+        for button in self.find_all(locator):
+            button.click()
 
     @allure.step("Field a form with some data")
     def field_form(self, locator, data):
@@ -53,3 +58,7 @@ class BasePage:
     @allure.step("Check Page Title")
     def check_page_title_is_(self, title):
         return self.browser.title == title
+
+    @allure.step("Check the page is reload")
+    def check_page_loaded(self):
+        self.wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')

@@ -24,3 +24,4 @@ class TestLoggedUserProductPage(BaseTest):
             "Wrong URL"
         assert self.corporation_list_page.check_number_of_products_on_page() == 1, \
             "Must be one product on the page"
+        self.corporation_list_page.remove_products()
