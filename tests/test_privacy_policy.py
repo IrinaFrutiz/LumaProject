@@ -2,7 +2,6 @@ import allure
 import pytest
 
 from base.base_test import BaseTest
-from data.links import *
 
 
 class TestPrivacyPolicyPage(BaseTest):
@@ -11,7 +10,7 @@ class TestPrivacyPolicyPage(BaseTest):
     @allure.link('https://pola-gor.atlassian.net/browse/LUM-18')
     def test_verify_left_nav_links(self):
         self.privacy_policy_page.open()
-        assert self.privacy_policy_page.check_url_is_(PRIVACY_POLICY_PAGE_URL), \
+        assert self.privacy_policy_page.check_url_is_(self.privacy_policy_page.URL), \
             'Wrong URL'
         assert self.privacy_policy_page.check_page_title_is_('Privacy Policy'), \
             'Wrong title'
@@ -27,7 +26,8 @@ class TestPrivacyPolicyPage(BaseTest):
             'Security anchor link is not visible'
         assert self.privacy_policy_page.check_others_with_whom_we_share_your_information_anchor_link_visibility(), \
             'Others With Whom We Share Your Information anchor link is not visible'
-        assert self.privacy_policy_page.check_your_choices_regarding_use_of_the_information_we_collect_anchor_link_visibility(), \
+        assert self.privacy_policy_page.\
+            check_your_choices_regarding_use_of_the_information_we_collect_anchor_link_visibility(), \
             'Your Choices Regarding Use Of The Information We Collect anchor link is not visible'
         assert self.privacy_policy_page.check_your_california_privacy_rights_anchor_link_visibility(), \
             'Your California Privacy Rights anchor link is not visible'
