@@ -42,7 +42,3 @@ class MainPage(BasePage):
     @allure.step("Choose Argus Color Gray")
     def choose_argus_color_gray(self):
         self.find_argus_color_gray().click()
-
-    @allure.step("Check if Success Message is Displayed")
-    def check_success_message(self):
-        self.check_success_message_is_(SUCCESS_MSG_TEXT), 'Success message is not displayed'

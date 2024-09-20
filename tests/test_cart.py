@@ -1,6 +1,8 @@
 import allure
 
 from base.base_test import BaseTest
+from pages.main_page import SUCCESS_MSG_ALERT, SUCCESS_MSG_TEXT
+from pages.cart_page import PRODUCT_IMG, PRODUCT_SIZE_VALUE, PRODUCT_COLOR_VALUE, PRODUCT_NAME, CART_QTY_TAG
 
 
 class TestCart(BaseTest):
@@ -16,15 +18,21 @@ class TestCart(BaseTest):
         self.main_page.click_argus_add_to_cart_btn()
 
         self.main_page.check_url_is_(self.main_page.URL)
-        self.main_page.check_success_message()
-        self.cart_page.check_cart_tag_displayed()
+        self.main_page.check_success_message_is_(SUCCESS_MSG_ALERT, SUCCESS_MSG_TEXT)
+        assert self.cart_page.check_element_visibility_(CART_QTY_TAG).is_displayed(), \
+            'Cart Quantity Tag is not displayed'
         self.cart_page.open()
 
         # Steps:
-        self.cart_page.verify_product_name()
-        self.cart_page.verify_product_size()
-        self.cart_page.verify_product_color()
-        self.cart_page.verify_product_image()
+        assert self.cart_page.check_element_visibility_(PRODUCT_NAME).text == 'Argus All-Weather Tank', \
+            'Wrong Product Name'
+        assert self.cart_page.check_element_visibility_(PRODUCT_SIZE_VALUE).text == 'M', \
+            'Wrong Product Size Value'
+        assert self.cart_page.check_element_visibility_(PRODUCT_COLOR_VALUE).text == 'Gray', \
+            'Wrong Product Color Value'
+        assert self.cart_page.check_element_visibility_(PRODUCT_IMG).is_displayed() and \
+               self.cart_page.check_element_visibility_(PRODUCT_IMG).get_attribute('alt') == \
+               'Argus All-Weather Tank', 'Product Image is not displayed or not relevant'
 
         # Postcondition:
         self.cart_page.remove_item_from_cart()

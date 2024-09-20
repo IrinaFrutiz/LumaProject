@@ -57,9 +57,9 @@ class BasePage:
     def check_url_is_(self, url):
         return self.browser.current_url == url
 
-    @allure.step("Check Success Message Text")
-    def check_success_message_is_(self, text):
-        return self.get_text == text
+    @allure.step("Check Success Message Text is Correct")
+    def check_success_message_is_(self, locator, text):
+        return self.get_text(locator) == text
 
     @allure.step("Check Page Title")
     def check_page_title_is_(self, title):
@@ -71,4 +71,4 @@ class BasePage:
 
     @allure.step("Hover Over Element")
     def hover(self, locator):
-        self.action.move_to_element(self.check_element_visibility_(locator))
+        self.action.move_to_element(self.check_element_visibility_(locator)).perform()
