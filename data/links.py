@@ -63,6 +63,7 @@ SOFTWARE_TESTING_BOARD_URL = BASE_URL + "/magento-store-notes/?utm_source=magent
                                         "campaign=notes_promo&utm_id=notes_promotion"
 
 CORPORATION_LIST_URL = BASE_URL + '/catalog/product_compare/'
+WISH_LIST_URL = BASE_URL + '/wishlist'
 
 random_product_url = BASE_URL + random.choice([
     '/antonia-racer-tank.html',
