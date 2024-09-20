@@ -2,7 +2,6 @@ import allure
 import pytest
 
 from base.base_test import BaseTest
-from data.links import CORPORATION_LIST_URL
 
 
 class TestProductPage(BaseTest):
@@ -24,7 +23,7 @@ class TestLoggedUserProductPage(BaseTest):
         assert self.product_page.check_message_that_product_added_to_the_comparison_list(), \
             "Wrong message"
         self.product_page.click_corporation_list_link()
-        assert self.corporation_list_page.check_url_is_(CORPORATION_LIST_URL), \
+        assert self.corporation_list_page.check_url_is_(self.corporation_list_page.URL), \
             "Wrong URL"
         assert self.corporation_list_page.check_number_of_products_on_page() == 1, \
             "Must be one product on the page"
