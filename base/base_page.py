@@ -1,4 +1,5 @@
 import allure
+from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -53,3 +54,16 @@ class BasePage:
     @allure.step("Check Page Title")
     def check_page_title_is_(self, title):
         return self.browser.title == title
+
+    @allure.step("Mouse over an element")
+    def mouse_over_element_(self, locator):
+        achains = ActionChains(self.browser)
+        return achains.move_to_element(self.find(locator)).perform()
+
+    @allure.step("Check if element is highlighted")
+    def check_element_highlighted_(self, locator):
+        background_color = self.find(locator).value_of_css_property('background-color')
+        expected_color = 'rgba(232, 232, 232, 1)'
+
+        if background_color == expected_color:
+            return bool(self.check_element_visibility_(locator))
