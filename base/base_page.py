@@ -64,3 +64,8 @@ class BasePage:
     @allure.step("Check the page is reload")
     def check_page_loaded(self):
         self.wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
+
+    @allure.step("Mouse over an element")
+    def mouse_over_element_(self, locator):
+        achains = ActionChains(self.browser)
+        return achains.move_to_element(self.find(locator)).perform()
