@@ -3,6 +3,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BasePage:
@@ -11,6 +12,7 @@ class BasePage:
     def __init__(self, browser: WebDriver):
         self.browser = browser
         self.wait = WebDriverWait(browser, 20, poll_frequency=0.5)
+        self.action = ActionChains(browser)
 
     @allure.step("Open page")
     def open(self):
@@ -25,7 +27,7 @@ class BasePage:
 
     @allure.step("Find locators")
     def find_all(self, locator):
-        return self.browser.find_elements(locator)
+        return self.browser.find_elements(*locator)
 
     @allure.step("Check visibility of the element")
     def check_element_visibility_(self, locator):
@@ -37,7 +39,12 @@ class BasePage:
 
     @allure.step("Click a button")
     def click_button(self, locator):
-        self.find(locator).click()
+        self.wait.until(EC.element_to_be_clickable(locator)).click()
+
+    @allure.step("Click all the buttons")
+    def click_all_buttons(self, locator):
+        for button in self.find_all(locator):
+            button.click()
 
     @allure.step("Field a form with some data")
     def field_form(self, locator, data):
@@ -54,6 +61,10 @@ class BasePage:
     @allure.step("Check Page Title")
     def check_page_title_is_(self, title):
         return self.browser.title == title
+
+    @allure.step("Check the page is reload")
+    def check_page_loaded(self):
+        self.wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
 
     @allure.step("Mouse over an element")
     def mouse_over_element_(self, locator):

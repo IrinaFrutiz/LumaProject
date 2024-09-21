@@ -1,7 +1,6 @@
 import allure
 
 from base.base_test import BaseTest
-from data.links import *
 
 
 class TestPrivacyPolicyPage(BaseTest):
@@ -10,7 +9,7 @@ class TestPrivacyPolicyPage(BaseTest):
     @allure.link('https://pola-gor.atlassian.net/browse/LUM-18')
     def test_verify_left_nav_links(self):
         self.privacy_policy_page.open()
-        assert self.privacy_policy_page.check_url_is_(PRIVACY_POLICY_PAGE_URL), \
+        assert self.privacy_policy_page.check_url_is_(self.privacy_policy_page.URL), \
             'Wrong URL'
         assert self.privacy_policy_page.check_page_title_is_('Privacy Policy'), \
             'Wrong title'

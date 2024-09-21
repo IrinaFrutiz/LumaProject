@@ -5,6 +5,9 @@ from pages.create_account_page import CreateAccountPage
 from pages.basic_elements import BasicElements
 from pages.footer_page import FooterPage
 from pages.privacy_policy_page import PrivacyPolicyPage
+from pages.product_page import ProductPage
+from pages.corporation_list_page import CorporationLIstPage
+from pages.wish_list_page import WishListPage
 
 
 class BaseTest:
@@ -14,6 +17,9 @@ class BaseTest:
     basic_elements: BasicElements
     footer_page: FooterPage
     privacy_policy_page: PrivacyPolicyPage
+    product_page: ProductPage
+    corporation_list_page: CorporationLIstPage
+    wish_list_page: WishListPage
 
     @pytest.fixture(autouse=True)
     def setup_method(self, request, browser):
@@ -24,3 +30,6 @@ class BaseTest:
         request.cls.basic_elements = BasicElements(browser)
         request.cls.footer_page = FooterPage(browser)
         request.cls.privacy_policy_page = PrivacyPolicyPage(browser)
+        request.cls.product_page = ProductPage(browser)
+        request.cls.corporation_list_page = CorporationLIstPage(browser)
+        request.cls.wish_list_page = WishListPage(browser)

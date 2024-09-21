@@ -3,7 +3,6 @@ import pytest
 
 from base.base_test import BaseTest
 from data.links import *
-from pages.footer_page import *
 
 
 class TestFooter(BaseTest):
