@@ -83,6 +83,14 @@ class PrivacyPolicyPage(BasePage):
     def check_questions_for_luma_anchor_link_visibility(self):
         return bool(self.check_element_visibility_(QUESTIONS_FOR_LUMA_ANCHOR_LINK))
 
+    @allure.step("Check if element is highlighted")
+    def check_element_highlighted_(self, locator):
+        background_color = self.find(locator).value_of_css_property('background-color')
+        expected_color = 'rgba(232, 232, 232, 1)'
+
+        if background_color == expected_color:
+            return bool(self.check_element_visibility_(locator))
+
     @allure.step("Check 'Luma Security' Anchor Link Is Highlighted")
     def check_luma_security_anchor_link_is_highlighted_(self):
         self.mouse_over_element_(LUMA_SECURITY_ANCHOR_LINK)

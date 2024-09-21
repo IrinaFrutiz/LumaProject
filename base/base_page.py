@@ -59,11 +59,3 @@ class BasePage:
     def mouse_over_element_(self, locator):
         achains = ActionChains(self.browser)
         return achains.move_to_element(self.find(locator)).perform()
-
-    @allure.step("Check if element is highlighted")
-    def check_element_highlighted_(self, locator):
-        background_color = self.find(locator).value_of_css_property('background-color')
-        expected_color = 'rgba(232, 232, 232, 1)'
-
-        if background_color == expected_color:
-            return bool(self.check_element_visibility_(locator))
