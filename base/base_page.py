@@ -57,6 +57,10 @@ class BasePage:
     def check_url_is_(self, url):
         return self.browser.current_url == url
 
+    @allure.step("Check Success Message Text is Correct")
+    def check_success_message_is_(self, locator, text):
+        return self.get_text(locator) == text
+
     @allure.step("Check Page Title")
     def check_page_title_is_(self, title):
         return self.browser.title == title
@@ -64,6 +68,10 @@ class BasePage:
     @allure.step("Check the page is reload")
     def check_page_loaded(self):
         self.wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
+
+    @allure.step("Hover Over Element")
+    def hover(self, locator):
+        self.action.move_to_element(self.check_element_visibility_(locator)).perform()
 
     @allure.step("Mouse over an element")
     def mouse_over_element_(self, locator):
