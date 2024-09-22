@@ -19,7 +19,7 @@ class TestBasicElements(BaseTest):
         assert self.basic_elements.check_create_an_account_link_visibility(), \
             'Element is not visible'
         self.basic_elements.click_create_an_account_link()
-        assert self.basic_elements.check_url_is_(CREATE_ACCOUNT_URL), \
+        assert self.basic_elements.check_url_is_(self.create_account_page.URL), \
             'Wrong URL'
         assert self.basic_elements.check_page_title_is_('Create New Customer Account'), \
             'Wrong title'

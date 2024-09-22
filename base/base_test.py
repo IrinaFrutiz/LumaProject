@@ -8,6 +8,7 @@ from pages.privacy_policy_page import PrivacyPolicyPage
 from pages.product_page import ProductPage
 from pages.corporation_list_page import CorporationLIstPage
 from pages.cart_page import CartPage
+from pages.wish_list_page import WishListPage
 
 
 class BaseTest:
@@ -20,6 +21,7 @@ class BaseTest:
     product_page: ProductPage
     corporation_list_page: CorporationLIstPage
     cart_page: CartPage
+    wish_list_page: WishListPage
 
     @pytest.fixture(autouse=True)
     def setup_method(self, request, browser):
@@ -33,3 +35,4 @@ class BaseTest:
         request.cls.product_page = ProductPage(browser)
         request.cls.corporation_list_page = CorporationLIstPage(browser)
         request.cls.cart_page = CartPage(browser)
+        request.cls.wish_list_page = WishListPage(browser)

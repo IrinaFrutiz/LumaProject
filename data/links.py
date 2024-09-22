@@ -63,5 +63,28 @@ SOFTWARE_TESTING_BOARD_URL = BASE_URL + "/magento-store-notes/?utm_source=magent
                                         "campaign=notes_promo&utm_id=notes_promotion"
 
 CORPORATION_LIST_URL = BASE_URL + '/catalog/product_compare/'
+WISH_LIST_URL = BASE_URL + '/wishlist'
 
-random_product_url = BASE_URL + random.choice(['/antonia-racer-tank.html', '/radiant-tee.html'])
+random_product_url = BASE_URL + random.choice([
+    '/antonia-racer-tank.html',
+    '/radiant-tee.html',
+    '/cassius-sparring-tank.html?qty=1',
+    '/cronus-yoga-pant.html',
+    '/deion-long-sleeve-evercool-trade-tee.html',
+    '/helena-hooded-fleece.html',
+    '/layla-tee.html',
+    '/stellar-solar-jacket.html',
+    '/nona-fitness-tank.html',
+    '/bardot-capri.html',
+    '/mimi-all-purpose-short.html',
+    '/taurus-elements-shell.html',
+    '/primo-endurance-tank.html',
+    '/meteor-workout-short.html',
+    '/savvy-shoulder-tote.html',
+    '/sprite-yoga-companion-kit.html',
+    '/cruise-dual-analog-watch.html',
+    '/adrienne-trek-jacket.html',
+    '/quest-lumaflex-trade-band.html',
+    '/affirm-water-bottle.html',
+    '/sprite-foam-yoga-brick.html'
+])
