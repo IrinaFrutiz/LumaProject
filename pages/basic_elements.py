@@ -17,7 +17,7 @@ class BasicElements(BasePage):
 
     @allure.step("Go to Women -> Tops -> Trees")
     def go_to_women_tops_trees(self):
-        woman = self.find(WOMEN_CATEGORY)
+        woman = self.check_element_visibility_(WOMEN_CATEGORY)
         tops = self.find(TOPS_CATEGORY)
         trees = self.find(TREES_CATEGORY)
         self.action.move_to_element(woman)\
