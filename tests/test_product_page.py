@@ -44,3 +44,16 @@ class TestLoggedUserProductPage(BaseTest):
             f"The wish list don't have product with name {name}"
         self.wish_list_page.remove_products()
 
+    @allure.feature('Radiant Tee product page')
+    @allure.title("Visibility of product name, price and photo")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-143')
+    def test_visibility_of_name_price_photo(self, user_login):
+        self.main_page.open()
+        self.basic_elements.go_to_women_tops_trees()
+        self.women_tops_trees_page.go_to_random_product()
+        assert self.product_page.check_product_name_presence(), \
+            "Product name is not presence"
+        assert self.product_page.check_product_price_presence(), \
+            "Product price is not presence"
+        assert self.product_page.check_product_photo_presence(), \
+            "Product photo is not presence"
