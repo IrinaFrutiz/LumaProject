@@ -36,6 +36,9 @@ class BasePage:
     def check_all_visibility_(self, locator):
         return self.wait.until(EC.visibility_of_all_elements_located(locator))
 
+    def check_element_presence(self, locator):
+        return self.wait.until(EC.presence_of_element_located(locator))
+
     @allure.step("Click a button")
     def click_button(self, locator):
         self.wait.until(EC.element_to_be_clickable(locator)).click()
@@ -44,6 +47,11 @@ class BasePage:
     def click_all_buttons(self, locator):
         for button in self.find_all(locator):
             button.click()
+
+    @allure.step("Choose random element from elements")
+    def click_to_random_element(self, locator):
+        import random
+        random.choice(self.find_all(locator)).click()
 
     @allure.step("Field a form with some data")
     def field_form(self, locator, data):
