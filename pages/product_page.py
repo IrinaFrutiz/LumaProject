@@ -1,4 +1,5 @@
 import allure
+from selenium.common import TimeoutException
 
 from base.base_page import BasePage
 from data.links import random_product_url
@@ -10,6 +11,9 @@ PRODUCT_PRICE = ('css selector', '.product-info-price .price')
 PRODUCT_PHOTO = ('css selector', '.fotorama__img')
 CORPORATION_MESSAGE = ('css selector', 'div[data-bind^="html: "]')
 CORPORATION_LIST_LINK = ('xpath', '//a[text()="comparison list"]')
+ADD_TO_CART_BTNS = ('xpath', '//button[@title="Add to Cart"]')
+PRODUCT_SIZE_OPTIONS = ('xpath', '//div[@class="swatch-option text"]')
+PRODUCT_COLOR_OPTIONS = ('xpath', '//div[@class="swatch-option color"]')
 
 
 class ProductPage(BasePage):
@@ -49,3 +53,31 @@ class ProductPage(BasePage):
         self.check_element_visibility_(CORPORATION_MESSAGE)
         success_text = self.get_text(CORPORATION_MESSAGE)
         return f'You added product {product_name} to the comparison list.' == success_text
+
+    @allure.step("Click Add To Cart Button")
+    def click_add_to_cart_btn(self):
+        self.click_button(ADD_TO_CART_BTNS)
+
+    @allure.step("Find all sizes options")
+    def all_sizes(self):
+        return self.check_all_visibility_(PRODUCT_SIZE_OPTIONS)
+
+    @allure.step("Find all colors options")
+    def all_colors(self):
+        return self.check_all_visibility_(PRODUCT_COLOR_OPTIONS)
+
+    @allure.step("Check if product has size and color, choose random size and color and add to cart")
+    def if_size_and_color_pick_random_size_and_color_add_to_cart(self):
+        try:
+            self.click_add_to_cart_btn()
+
+            if self.all_sizes() and self.all_colors():
+                for _ in self.all_sizes():
+                    self.click_to_random_element(PRODUCT_SIZE_OPTIONS)
+                    break
+                for _ in self.all_colors():
+                    self.click_to_random_element(PRODUCT_COLOR_OPTIONS)
+                    break
+                self.click_add_to_cart_btn()
+        except TimeoutException:
+            pass
