@@ -2,7 +2,8 @@ import allure
 
 from base.base_test import BaseTest
 from pages.main_page import SUCCESS_MSG_ALERT, SUCCESS_MSG_TEXT
-from pages.cart_page import PRODUCT_IMG, PRODUCT_SIZE_VALUE, PRODUCT_COLOR_VALUE, PRODUCT_NAME, CART_QTY_TAG
+from pages.cart_page import PRODUCT_IMG, PRODUCT_SIZE_VALUE, PRODUCT_COLOR_VALUE, PRODUCT_NAME, CART_QTY_TAG, \
+    CART_IS_EMPTY_MSG
 
 
 class TestCart(BaseTest):
@@ -36,3 +37,22 @@ class TestCart(BaseTest):
 
         # Postcondition:
         self.cart_page.remove_item_from_cart()
+
+    @allure.feature('Cart')
+    @allure.title("Checking the product is deleted from the cart")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-116')
+    def test_product_deleted_from_cart(self):
+        # Precondition:
+        self.main_page.open()
+        self.main_page.choose_random_item_and_click()
+        self.product_page.if_size_and_color_pick_random_size_and_color_add_to_cart()
+        assert self.cart_page.check_element_visibility_(CART_QTY_TAG).is_displayed(), \
+            'Cart Quantity Tag is not displayed'
+        self.cart_page.open()
+
+        # Steps:
+        self.cart_page.remove_item_from_cart()
+        assert self.cart_page.check_page_title_is_('Shopping Cart'), 'Wrong Page Title'
+        assert self.cart_page.check_success_message_is_(
+                CART_IS_EMPTY_MSG, 'You have no items in your shopping cart.\nClick here to continue shopping.'
+            ), 'The message is not provided'

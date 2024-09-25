@@ -36,6 +36,7 @@ class BasePage:
     def check_all_visibility_(self, locator):
         return self.wait.until(EC.visibility_of_all_elements_located(locator))
 
+    @allure.step("Check presence of the element")
     def check_element_presence(self, locator):
         return self.wait.until(EC.presence_of_element_located(locator))
 
