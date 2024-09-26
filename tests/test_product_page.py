@@ -57,3 +57,22 @@ class TestLoggedUserProductPage(BaseTest):
             "Product price is not presence"
         assert self.product_page.check_product_photo_presence(), \
             "Product photo is not presence"
+
+    @allure.feature('Radiant Tee product page')
+    @allure.title("Adding the product to the cart")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-142')
+    def test_adding_product_to_cart(self, user_login):
+        self.product_page.open()
+        product_name = self.product_page.get_product_name()
+        product_price = self.product_page.get_product_price()
+        size, color, qty = self.product_page.filling_in_product_parameters()
+        self.product_page.click_add_to_cart()
+        self.basic_elements.check_cart_uploaded()
+        self.basic_elements.click_cart()
+        assert self.mini_cart_page.check_cart_have_product_(product_name), \
+            f"Not find product with the name {product_name} in the cart"
+        assert self.mini_cart_page.check_subtotal_(product_price, qty), \
+            f"Total price is not match with {product_price * qty}"
+        assert self.mini_cart_page.check_product_number_(qty), \
+            "Number of added product is not match with number in the cart"
+        self.mini_cart_page.delete_all_product()

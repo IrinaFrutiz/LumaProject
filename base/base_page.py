@@ -32,6 +32,10 @@ class BasePage:
     def check_element_visibility_(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
 
+    @allure.step("Check not visibility of the element")
+    def check_element_not_visible_(self, locator):
+        return self.wait.until_not(EC.visibility_of_element_located(locator))
+
     @allure.step("Check visibility of all elements")
     def check_all_visibility_(self, locator):
         return self.wait.until(EC.visibility_of_all_elements_located(locator))
@@ -55,11 +59,16 @@ class BasePage:
 
     @allure.step("Field a form with some data")
     def field_form(self, locator, data):
+        self.find(locator).clear()
         self.find(locator).send_keys(data)
 
     @allure.step("Get text and return it")
     def get_text(self, locator):
-        return self.find(locator).text
+        return self.check_element_visibility_(locator).text
+
+    @allure.step("Get list of text and return it")
+    def get_all_text(self, locator):
+        return [webelement.text for webelement in self.find_all(locator)]
 
     @allure.step("Check URL")
     def check_url_is_(self, url):
