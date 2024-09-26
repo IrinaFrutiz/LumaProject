@@ -10,6 +10,7 @@ from pages.corporation_list_page import CorporationLIstPage
 from pages.cart_page import CartPage
 from pages.wish_list_page import WishListPage
 from pages.women_tops_trees_page import WomenTopsTreesPage
+from pages.mini_cart_page import MiniCartPage
 
 
 class BaseTest:
@@ -24,6 +25,7 @@ class BaseTest:
     cart_page: CartPage
     wish_list_page: WishListPage
     women_tops_trees_page: WomenTopsTreesPage
+    mini_cart_page: MiniCartPage
 
     @pytest.fixture(autouse=True)
     def setup_method(self, request, browser):
@@ -39,3 +41,4 @@ class BaseTest:
         request.cls.cart_page = CartPage(browser)
         request.cls.wish_list_page = WishListPage(browser)
         request.cls.women_tops_trees_page = WomenTopsTreesPage(browser)
+        request.cls.mini_cart_page = MiniCartPage(browser)
