@@ -2,7 +2,6 @@ import allure
 
 from base.base_page import BasePage
 
-
 CREATE_AN_ACCOUNT_LINK = ("xpath", "//div[@class ='panel header']//a[text()='Create an Account']")
 
 BUTTON_CART = ('css selector', '.showcart')
@@ -41,17 +40,16 @@ class BasicElements(BasePage):
         except:
             pass
 
-
     # need to go to other page
     @allure.step("Go to Women -> Tops -> Trees")
     def go_to_women_tops_trees(self):
         woman = self.check_element_visibility_(WOMEN_CATEGORY)
         tops = self.find(TOPS_CATEGORY)
         trees = self.find(TREES_CATEGORY)
-        self.action.move_to_element(woman)\
-            .move_to_element(tops)\
-            .move_to_element(trees)\
-            .click(trees)\
+        self.action.move_to_element(woman) \
+            .move_to_element(tops) \
+            .move_to_element(trees) \
+            .click(trees) \
             .perform()
 
     @allure.step("Click The Create An Account Link")

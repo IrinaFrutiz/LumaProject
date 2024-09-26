@@ -26,7 +26,7 @@ class BasePage:
 
     @allure.step("Find locators")
     def find_all(self, locator):
-        return self.browser.find_elements(*locator)
+        return self.check_all_visibility_(locator)
 
     @allure.step("Check visibility of the element")
     def check_element_visibility_(self, locator):
