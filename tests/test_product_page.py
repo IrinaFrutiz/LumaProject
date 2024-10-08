@@ -44,3 +44,35 @@ class TestLoggedUserProductPage(BaseTest):
             f"The wish list don't have product with name {name}"
         self.wish_list_page.remove_products()
 
+    @allure.feature('Radiant Tee product page')
+    @allure.title("Visibility of product name, price and photo")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-143')
+    def test_visibility_of_name_price_photo(self, user_login):
+        self.main_page.open()
+        self.basic_elements.go_to_women_tops_trees()
+        self.women_tops_trees_page.go_to_random_product()
+        assert self.product_page.check_product_name_presence(), \
+            "Product name is not presence"
+        assert self.product_page.check_product_price_presence(), \
+            "Product price is not presence"
+        assert self.product_page.check_product_photo_presence(), \
+            "Product photo is not presence"
+
+    @allure.feature('Radiant Tee product page')
+    @allure.title("Adding the product to the cart")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-142')
+    def test_adding_product_to_cart(self, user_login):
+        self.product_page.open()
+        product_name = self.product_page.get_product_name()
+        product_price = self.product_page.get_product_price()
+        size, color, qty = self.product_page.filling_in_product_parameters()
+        self.product_page.click_add_to_cart()
+        self.basic_elements.check_cart_uploaded()
+        self.basic_elements.click_cart()
+        assert self.mini_cart_page.check_cart_have_product_(product_name), \
+            f"Not find product with the name {product_name} in the cart"
+        assert self.mini_cart_page.check_subtotal_(product_price, qty), \
+            f"Total price is not match with {product_price * qty}"
+        assert self.mini_cart_page.check_product_number_(qty), \
+            "Number of added product is not match with number in the cart"
+        self.mini_cart_page.delete_all_product()

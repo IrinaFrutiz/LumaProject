@@ -26,15 +26,23 @@ class BasePage:
 
     @allure.step("Find locators")
     def find_all(self, locator):
-        return self.browser.find_elements(*locator)
+        return self.check_all_visibility_(locator)
 
     @allure.step("Check visibility of the element")
     def check_element_visibility_(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
 
+    @allure.step("Check not visibility of the element")
+    def check_element_not_visible_(self, locator):
+        return self.wait.until_not(EC.visibility_of_element_located(locator))
+
     @allure.step("Check visibility of all elements")
     def check_all_visibility_(self, locator):
         return self.wait.until(EC.visibility_of_all_elements_located(locator))
+
+    @allure.step("Check presence of the element")
+    def check_element_presence(self, locator):
+        return self.wait.until(EC.presence_of_element_located(locator))
 
     @allure.step("Click a button")
     def click_button(self, locator):
@@ -45,17 +53,31 @@ class BasePage:
         for button in self.find_all(locator):
             button.click()
 
+    @allure.step("Choose random element from elements")
+    def click_to_random_element(self, locator):
+        import random
+        random.choice(self.find_all(locator)).click()
+
     @allure.step("Field a form with some data")
     def field_form(self, locator, data):
+        self.find(locator).clear()
         self.find(locator).send_keys(data)
 
     @allure.step("Get text and return it")
     def get_text(self, locator):
-        return self.find(locator).text
+        return self.check_element_visibility_(locator).text
+
+    @allure.step("Get list of text and return it")
+    def get_all_text(self, locator):
+        return [webelement.text for webelement in self.find_all(locator)]
 
     @allure.step("Check URL")
     def check_url_is_(self, url):
         return self.browser.current_url == url
+
+    @allure.step("Check Success Message Text is Correct")
+    def check_success_message_is_(self, locator, text):
+        return self.get_text(locator) == text
 
     @allure.step("Check Page Title")
     def check_page_title_is_(self, title):
