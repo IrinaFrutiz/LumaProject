@@ -65,7 +65,6 @@ class BasePage:
     def check_page_loaded(self):
         self.wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
 
-    @allure.step("Mouse over an element")
-    def mouse_over_element_(self, locator):
-        achains = ActionChains(self.browser)
-        return achains.move_to_element(self.find(locator)).perform()
+    @allure.step("Hover Over Element")
+    def hover(self, locator):
+        self.action.move_to_element(self.check_element_visibility_(locator)).perform()
