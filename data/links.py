@@ -97,7 +97,7 @@ random_product_url = BASE_URL + random.choice([
     '/primo-endurance-tank.html',
     '/meteor-workout-short.html',
     '/savvy-shoulder-tote.html',
-    '/sprite-yoga-companion-kit.html',
+    '/dual-handle-cardio-ball.html',
     '/cruise-dual-analog-watch.html',
     '/adrienne-trek-jacket.html',
     '/quest-lumaflex-trade-band.html',
