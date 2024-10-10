@@ -166,6 +166,6 @@ class PrivacyPolicyPage(BasePage):
             link.click()
             expected_url = expected_anchor_urls.get(f"link{i + 1}")
             if expected_url == self.browser.current_url:
-                return self.check_url_is_(expected_url)
+                return True
             else:
                 return False
