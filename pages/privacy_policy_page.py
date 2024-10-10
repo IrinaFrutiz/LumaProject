@@ -162,7 +162,6 @@ class PrivacyPolicyPage(BasePage):
 
     @allure.step("Verify left nav anchor links on Privacy Policy page are working")
     def check_privacy_left_nav_anchor_links_work(self):
-        expected_url = None
         for i, link in enumerate(self.find_all(LEFT_NAV_LINKS)):
             link.click()
             expected_url = expected_anchor_urls.get(f"link{i + 1}")
