@@ -90,8 +90,3 @@ class BasePage:
     @allure.step("Hover Over Element")
     def hover(self, locator):
         self.action.move_to_element(self.check_element_visibility_(locator)).perform()
-
-    @allure.step("Mouse over an element")
-    def mouse_over_element_(self, locator):
-        achains = ActionChains(self.browser)
-        return achains.move_to_element(self.find(locator)).perform()

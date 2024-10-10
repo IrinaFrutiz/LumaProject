@@ -80,3 +80,13 @@ class TestPrivacyPolicyPage(BaseTest):
             'Acceptance anchor link is not highlighted'
         assert self.privacy_policy_page.check_questions_for_luma_anchor_link_is_highlighted_(), \
             'Questions For Luma? anchor link is not highlighted'
+
+    @allure.feature('Privacy and Cookie Policy')
+    @allure.title("Verify the correct title of the opened page section after clicking on a specific link")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-168')
+    def test_verify_privacy_left_nav_anchor_links_work(self):
+        self.privacy_policy_page.open()
+        assert self.privacy_policy_page.check_url_is_(PRIVACY_POLICY_PAGE_URL), \
+            'Wrong URL'
+        assert self.privacy_policy_page.check_privacy_left_nav_anchor_links_work(), \
+            'Anchor link is not working'
