@@ -165,7 +165,6 @@ class PrivacyPolicyPage(BasePage):
         for i, link in enumerate(self.find_all(LEFT_NAV_LINKS)):
             link.click()
             expected_url = expected_anchor_urls.get(f"link{i + 1}")
-            if expected_url == self.browser.current_url:
-                return True
-            else:
+            if expected_url != self.browser.current_url:
                 return False
+        return True
