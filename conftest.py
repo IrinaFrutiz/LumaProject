@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.options import Options
 def browser(request):
     options_chrome = Options()
     options_chrome.add_argument("--window-size=1920,1080")
-    options_chrome.add_argument("--headless")
+    options_chrome.add_argument("--headless=old")
     options_chrome.add_argument("--no-sandbox")
     options_chrome.add_argument("--disable-dev-shm-usage")
     options_chrome.add_argument("--disable-search-engine-choice-screen")

@@ -14,10 +14,25 @@ class TestLoggedUserProductPage(BaseTest):
         self.login_page.open()
         self.login_page.user_login()
 
+    @pytest.fixture(scope="function")
+    def remove_products_from_corporation(self):
+        yield
+        self.corporation_list_page.remove_products()
+
+    @pytest.fixture(scope="function")
+    def remove_products_from_wishlist(self):
+        yield
+        self.wish_list_page.remove_products()
+
+    @pytest.fixture(scope="function")
+    def remove_products_from_cart(self):
+        yield
+        self.mini_cart_page.delete_all_product()
+
     @allure.feature('Radiant Tee product page')
     @allure.title("Adding the product to the comparison list")
     @allure.link('https://pola-gor.atlassian.net/browse/LUM-134')
-    def test_adding_the_product_to_the_comparison_list(self, user_login):
+    def test_adding_the_product_to_the_comparison_list(self, user_login, remove_products_from_corporation):
         self.product_page.open()
         self.product_page.click_add_to_compare_link()
         assert self.product_page.check_message_that_product_added_to_the_comparison_list(), \
@@ -27,12 +42,11 @@ class TestLoggedUserProductPage(BaseTest):
             "Wrong URL"
         assert self.corporation_list_page.check_number_of_products_on_page() == 1, \
             "Must be one product on the page"
-        self.corporation_list_page.remove_products()
 
     @allure.feature('Radiant Tee product page')
     @allure.title("Adding the product to the wish list")
     @allure.link('https://pola-gor.atlassian.net/browse/LUM-135')
-    def test_adding_the_product_to_the_wish_list(self, user_login):
+    def test_adding_the_product_to_the_wish_list(self, user_login, remove_products_from_wishlist):
         self.product_page.open()
         name = self.product_page.get_product_name()
         self.product_page.click_add_to_wish_list()
@@ -42,7 +56,6 @@ class TestLoggedUserProductPage(BaseTest):
             "Wrong success message at the wish list page"
         assert self.wish_list_page.check_wish_list_have_product_with_name_(name), \
             f"The wish list don't have product with name {name}"
-        self.wish_list_page.remove_products()
 
     @allure.feature('Radiant Tee product page')
     @allure.title("Visibility of product name, price and photo")
@@ -61,7 +74,7 @@ class TestLoggedUserProductPage(BaseTest):
     @allure.feature('Radiant Tee product page')
     @allure.title("Adding the product to the cart")
     @allure.link('https://pola-gor.atlassian.net/browse/LUM-142')
-    def test_adding_product_to_cart(self, user_login):
+    def test_adding_product_to_cart(self, user_login, remove_products_from_cart):
         self.product_page.open()
         product_name = self.product_page.get_product_name()
         product_price = self.product_page.get_product_price()
@@ -75,4 +88,3 @@ class TestLoggedUserProductPage(BaseTest):
             f"Total price is not match with {product_price * qty}"
         assert self.mini_cart_page.check_product_number_(qty), \
             "Number of added product is not match with number in the cart"
-        self.mini_cart_page.delete_all_product()

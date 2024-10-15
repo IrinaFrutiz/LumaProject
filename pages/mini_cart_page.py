@@ -31,7 +31,7 @@ class MiniCartPage(BasicElements):
 
     @allure.step("Check subtotal is the product price * qty")
     def check_subtotal_(self, product_price, qty):
-        return self.get_subtotal_in_cart() == product_price * qty
+        return self.get_subtotal_in_cart() == round(product_price * qty, 2)
 
     @allure.step("Check number in the cart is the same as qty")
     def check_product_number_(self, qty):
