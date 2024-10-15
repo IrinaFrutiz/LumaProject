@@ -41,6 +41,22 @@ SALE_URL = BASE_URL + '/sale.html'
 
 POPULAR_SEARCH_TERMS_URL = BASE_URL + '/search/term/popular/'
 PRIVACY_POLICY_PAGE_URL = BASE_URL + '/privacy-policy-cookie-restriction-mode'
+expected_anchor_urls = {
+            "link1": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-1",
+            "link2": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-2",
+            "link3": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-3",
+            "link4": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-4",
+            "link5": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-5",
+            "link6": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-6",
+            "link7": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-7",
+            "link8": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-8",
+            "link9": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-9",
+            "link10": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-10",
+            "link11": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-11",
+            "link12": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-12",
+            "link13": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-13",
+            "link14": PRIVACY_POLICY_PAGE_URL + "#privacy-policy-title-14"
+        }
 ADVANCED_SEARCH_URL = BASE_URL + '/catalogsearch/advanced/'
 ORDERS_RETURNS_URL = BASE_URL + '/sales/guest/form/'
 
