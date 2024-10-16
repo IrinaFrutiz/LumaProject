@@ -90,3 +90,7 @@ class BasePage:
     @allure.step("Hover Over Element")
     def hover(self, locator):
         self.action.move_to_element(self.check_element_visibility_(locator)).perform()
+
+    @allure.step("Scroll To Element")
+    def scroll_to_(self, locator):
+        self.action.scroll_to_element(self.check_element_visibility_(locator)).perform()

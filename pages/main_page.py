@@ -4,6 +4,7 @@ from base.base_page import BasePage
 from data.links import MAIN_PAGE_URL
 
 PRODUCTS = ('xpath', '//li[@class="product-item"]')
+PRODUCTS_WIDGET = ('xpath', '//ol[@class="product-items widget-product-grid"]')
 ARGUS_ITEM = ('xpath', '(//li[@class="product-item"])[3]')
 ARGUS_SIZE_TAG_M = ('xpath', '(//li[@class="product-item"])[3]//div[@option-label="M"]')
 ARGUS_COLOR_TAG_GRAY = ('xpath', '(//li[@class="product-item"])[3]//div[@option-label="Gray"]')
@@ -17,6 +18,7 @@ class MainPage(BasePage):
 
     @allure.step("Choose Ramdom Item from the Main Page")
     def choose_random_item_and_click(self):
+        self.scroll_to_(PRODUCTS_WIDGET)
         self.click_to_random_element(PRODUCTS)
 
     @allure.step("Find Argus Tank Size M")
@@ -33,6 +35,7 @@ class MainPage(BasePage):
 
     @allure.step("Hover Over Argus Item Card")
     def hover_over_argus_item(self):
+        self.scroll_to_(ARGUS_ITEM)
         self.hover(ARGUS_ITEM)
 
     @allure.step("Choose Argus Size M")
