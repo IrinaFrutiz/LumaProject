@@ -19,4 +19,5 @@ class CartPage(BasePage):
 
     @allure.step("Remove Item from Cart")
     def remove_item_from_cart(self):
+        self.scroll_to_(REMOVE_FROM_CART_BTN)
         self.click_button(REMOVE_FROM_CART_BTN)
