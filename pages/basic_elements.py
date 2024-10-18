@@ -30,6 +30,15 @@ class BasicElements(BasePage):
         self.check_element_not_visible_(CART_ITEM_NUMBER_UPLOADER)
         self.check_element_not_visible_(CART_EMPTINESS)
 
+    @allure.step("Get numbers of products in the mini cart without going to the cart")
+    def get_products_numbers_in_cart(self):
+        return self.get_text(CART_ITEM_NUMBER)
+
+    @allure.step("Check that added number of products equal "
+                 "actual numbers in the mini cart (without going to the cart)")
+    def check_products_numbers_in_cart_is_(self, qty):
+        return int(self.get_products_numbers_in_cart()) == int(qty)
+
     @allure.step("Click the Cart button")
     def click_cart(self):
         self.click_button(BUTTON_CART)
