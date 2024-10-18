@@ -85,9 +85,9 @@ class TestLoggedUserProductPage(BaseTest):
         assert self.mini_cart_page.check_cart_have_product_(product_name), \
             f"Not find product with the name {product_name} in the cart"
         assert self.mini_cart_page.check_subtotal_(product_price, qty), \
-            f"Total price is not match with {product_price * qty}"
+            f"Total price is not match with {product_price * qty} ({product_name}, {product_price}, {qty})"
         assert self.mini_cart_page.check_product_number_(qty), \
-            "Number of added product is not match with number in the cart"
+            f"Number of added {product_name} is not match with number in the cart {qty}"
 
     @allure.feature('Radiant Tee product page')
     @allure.title("Quantity of items added to cart")
