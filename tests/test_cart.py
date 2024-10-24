@@ -13,6 +13,7 @@ class TestCart(BaseTest):
     def test_product_parameters_correct_in_cart(self):
         # Precondition:
         self.main_page.open()
+        self.main_page.scroll_to_products()
         self.main_page.hover_over_argus_item()
         self.main_page.choose_argus_size_m()
         self.main_page.choose_argus_color_gray()

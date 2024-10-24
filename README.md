@@ -41,8 +41,12 @@
     ```
    
 4. **Установите зависимости:**
-
-    ```bash
+   
+   ```bash
+    pip install git+https://github.com/sandrocods/SeleniumAdblock.git
+   ```
+   
+   ```bash
     pip install -r requirements.txt
    ```
 

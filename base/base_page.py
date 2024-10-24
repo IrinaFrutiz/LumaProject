@@ -32,6 +32,10 @@ class BasePage:
     def check_element_visibility_(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
 
+    @allure.step("Check clickability of the element")
+    def check_element_clickability_(self, locator):
+        return self.wait.until(EC.element_to_be_clickable(locator))
+
     @allure.step("Check not visibility of the element")
     def check_element_not_visible_(self, locator):
         return self.wait.until_not(EC.visibility_of_element_located(locator))
@@ -46,7 +50,8 @@ class BasePage:
 
     @allure.step("Click a button")
     def click_button(self, locator):
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+        # self.wait.until(EC.element_to_be_clickable(locator)).click()
+        self.action.move_to_element(self.check_element_clickability_(locator)).click().perform()
 
     @allure.step("Click all the buttons")
     def click_all_buttons(self, locator):
