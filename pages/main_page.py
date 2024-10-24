@@ -16,9 +16,13 @@ SUCCESS_MSG_TEXT = 'You added Argus All-Weather Tank to your shopping cart.'
 class MainPage(BasePage):
     URL = MAIN_PAGE_URL
 
+    @allure.step("Scroll to Products Widget")
+    def scroll_to_products(self):
+        self.scroll_to_(PRODUCTS_WIDGET)
+
     @allure.step("Choose Ramdom Item from the Main Page")
     def choose_random_item_and_click(self):
-        self.scroll_to_(PRODUCTS_WIDGET)
+        self.scroll_to_products()
         self.click_to_random_element(PRODUCTS)
 
     @allure.step("Find Argus Tank Size M")
@@ -31,11 +35,10 @@ class MainPage(BasePage):
 
     @allure.step("Find Argus Tank Add To Cart Button")
     def click_argus_add_to_cart_btn(self):
-        return self.click_button(ARGUS_ADD_BTN)
+        self.click_button(ARGUS_ADD_BTN)
 
     @allure.step("Hover Over Argus Item Card")
     def hover_over_argus_item(self):
-        self.scroll_to_(ARGUS_ITEM)
         self.hover(ARGUS_ITEM)
 
     @allure.step("Choose Argus Size M")
