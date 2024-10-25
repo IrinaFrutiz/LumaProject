@@ -20,7 +20,7 @@ def browser(request):
     options_chrome.add_argument('--ignore-ssl-errors=yes')
     options_chrome.add_experimental_option("excludeSwitches", ["enable-automation"])
     options_chrome.add_argument("--allow-running-insecure-content")
-    options_chrome.add_argument("--disable-web-security")
+    options_chrome.add_argument("--enable-web-security")
 
     browser = webdriver.Chrome(
         options=options_chrome)
