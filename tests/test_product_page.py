@@ -5,7 +5,14 @@ from base.base_test import BaseTest
 
 
 class TestProductPage(BaseTest):
-    pass
+    @allure.feature('Radiant Tee product page')
+    @allure.title("Visibility of the text in more information block")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-140')
+    def test_user_can_see_more_details_on_product_page(self):
+        self.product_page.open()
+        self.product_page.click_more_information()
+        assert self.product_page.check_more_information_text_clickable(), \
+            "Text is not presence in more information block on product page"
 
 
 class TestLoggedUserProductPage(BaseTest):
@@ -59,7 +66,7 @@ class TestLoggedUserProductPage(BaseTest):
 
     @allure.feature('Radiant Tee product page')
     @allure.title("Visibility of product name, price and photo")
-    @allure.link('https://pola-gor.atlassian.net/browse/LUM-143')
+    @allure.link('https://pola-gor.atlassian .net/browse/LUM-143')
     def test_visibility_of_name_price_photo(self, user_login):
         self.main_page.open()
         self.basic_elements.go_to_women_tops_trees()
@@ -100,3 +107,12 @@ class TestLoggedUserProductPage(BaseTest):
         assert self.basic_elements.check_products_numbers_in_cart_is_(qty), \
             f"Number of added product is not match with number {qty} in the mini cart"
         self.basic_elements.click_cart()
+
+    @allure.feature('Radiant Tee product page')
+    @allure.title("Visibility of the text in more information block")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-140')
+    def test_user_can_see_more_details_on_product_page(self, user_login):
+        self.product_page.open()
+        self.product_page.click_more_information()
+        assert self.product_page.check_more_information_text_clickable(), \
+            "Text is not presence in more information block on product page"

@@ -6,7 +6,7 @@ from pages.basic_elements import BasicElements
 from pages.footer_page import FooterPage
 from pages.privacy_policy_page import PrivacyPolicyPage
 from pages.product_page import ProductPage
-from pages.corporation_list_page import CorporationLIstPage
+from pages.corporation_list_page import CorporationListPage
 from pages.cart_page import CartPage
 from pages.wish_list_page import WishListPage
 from pages.women_tops_trees_page import WomenTopsTreesPage
@@ -21,7 +21,7 @@ class BaseTest:
     footer_page: FooterPage
     privacy_policy_page: PrivacyPolicyPage
     product_page: ProductPage
-    corporation_list_page: CorporationLIstPage
+    corporation_list_page: CorporationListPage
     cart_page: CartPage
     wish_list_page: WishListPage
     women_tops_trees_page: WomenTopsTreesPage
@@ -37,7 +37,7 @@ class BaseTest:
         request.cls.footer_page = FooterPage(browser)
         request.cls.privacy_policy_page = PrivacyPolicyPage(browser)
         request.cls.product_page = ProductPage(browser)
-        request.cls.corporation_list_page = CorporationLIstPage(browser)
+        request.cls.corporation_list_page = CorporationListPage(browser)
         request.cls.cart_page = CartPage(browser)
         request.cls.wish_list_page = WishListPage(browser)
         request.cls.women_tops_trees_page = WomenTopsTreesPage(browser)
