@@ -22,5 +22,3 @@ class CorporationListPage(BasePage):
             button.click()
             self.click_button(ACTION_OK)
             self.check_page_loaded()
-
-
