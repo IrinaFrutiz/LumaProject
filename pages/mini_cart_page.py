@@ -37,6 +37,7 @@ class MiniCartPage(BasicElements):
     def check_product_number_(self, qty):
         return self.get_number_items_in_cart() == qty
 
+    @allure.step("Delete all products from mini cart")
     def delete_all_product(self):
         for button in self.find_all(BUTTON_DELETE):
             button.click()

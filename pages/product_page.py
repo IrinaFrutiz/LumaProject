@@ -17,16 +17,22 @@ PRODUCT_ALL_COLOR_BUTTON = ('xpath', '//div[@aria-labelledby="option-label-color
 PRODUCT_QTY_BLOCK = ('css selector', '.field.qty')
 INPUT_QTY = ('id', 'qty')
 
-BUTTON_ADD_TO_CART = ('id', 'product-addtocart-button')
+BTN_ADD_TO_CART = ('id', 'product-addtocart-button')
 
 ADD_TO_COMPARE_LINK = ('xpath', '//a[@data-role="add-to-links"]')
 CORPORATION_MESSAGE = ('css selector', 'div[data-bind^="html: "]')
 CORPORATION_LIST_LINK = ('xpath', '//a[text()="comparison list"]')
-ADD_TO_CART_BTNS = ('xpath', '//button[@title="Add to Cart"]')
 PRODUCT_SIZE_OPTIONS = ('xpath', '//div[@class="swatch-option text"]')
 PRODUCT_COLOR_OPTIONS = ('xpath', '//div[@class="swatch-option color"]')
 
 ADD_TO_WISH_LIST = ('xpath', '(//a[@data-action="add-to-wishlist"])[1]')
+
+BTN_DETAILS = ('id', 'tab-label-description-title')
+DETAILS_TEXT = ('id', 'description')
+BTN_MORE_INFORMATION = ('id', 'tab-label-additional-title')
+MORE_INFORMATION_TEXT = ('id', 'additional')
+BTN_REVIEWS = ('id', 'tab-label-reviews-title')
+REVIEWS_TEXT = ('id', 'reviews')
 
 
 class ProductPage(BasePage):
@@ -40,6 +46,14 @@ class ProductPage(BasePage):
     def get_product_price(self):
         return float(self.get_text(PRODUCT_PRICE).replace(',', '').replace('$', ''))
 
+    @allure.step("Find all sizes options")
+    def get_all_sizes(self):
+        return self.check_all_visibility_(PRODUCT_SIZE_OPTIONS)
+
+    @allure.step("Find all colors options")
+    def get_all_colors(self):
+        return self.check_all_visibility_(PRODUCT_COLOR_OPTIONS)
+
     @allure.step("Filling in product parameters and return it (connect with product type)")
     def filling_in_product_parameters(self):
         import random
@@ -48,25 +62,25 @@ class ProductPage(BasePage):
             size_element = random.choice(self.find_all(PRODUCT_ALL_SIZES_BUTTON))
             product_parameters[0] = size_element.text
             size_element.click()
-        except:
+        except TimeoutException:
             pass
         try:
             color_element = random.choice(self.find_all(PRODUCT_ALL_COLOR_BUTTON))
             product_parameters[1] = color_element.text
             color_element.click()
-        except:
+        except TimeoutException:
             pass
         try:
             qty_number = random.randint(1, 10000)
             product_parameters[2] = qty_number
             self.field_form(INPUT_QTY, qty_number)
-        except:
+        except TimeoutException:
             pass
         return product_parameters
 
     @allure.step("Click to 'add to cart'")
     def click_add_to_cart(self):
-        self.click_button(BUTTON_ADD_TO_CART)
+        self.click_button(BTN_ADD_TO_CART)
 
     @allure.step("Click to 'add to compare'")
     def click_add_to_compare_link(self):
@@ -79,6 +93,10 @@ class ProductPage(BasePage):
     @allure.step("Click to corporation list link")
     def click_corporation_list_link(self):
         self.click_button(CORPORATION_LIST_LINK)
+
+    @allure.step("Click to More Information")
+    def click_more_information(self):
+        self.click_button(BTN_MORE_INFORMATION)
 
     @allure.step("Check product name is presence")
     def check_product_name_presence(self):
@@ -99,30 +117,22 @@ class ProductPage(BasePage):
         success_text = self.get_text(CORPORATION_MESSAGE)
         return f'You added product {product_name} to the comparison list.' == success_text
 
-    @allure.step("Click Add To Cart Button")
-    def click_add_to_cart_btn(self):
-        self.click_button(ADD_TO_CART_BTNS)
-
-    @allure.step("Find all sizes options")
-    def all_sizes(self):
-        return self.check_all_visibility_(PRODUCT_SIZE_OPTIONS)
-
-    @allure.step("Find all colors options")
-    def all_colors(self):
-        return self.check_all_visibility_(PRODUCT_COLOR_OPTIONS)
+    @allure.step("The text in more information block is presence")
+    def check_more_information_text_clickable(self):
+        return self.check_element_clickability_(MORE_INFORMATION_TEXT) is not None
 
     @allure.step("Check if product has size and color, choose random size and color and add to cart")
     def if_size_and_color_pick_random_size_and_color_add_to_cart(self):
         try:
-            self.click_add_to_cart_btn()
+            self.click_add_to_cart()
 
-            if self.all_sizes() and self.all_colors():
-                for _ in self.all_sizes():
+            if self.get_all_sizes() and self.get_all_colors():
+                for _ in self.get_all_sizes():
                     self.click_to_random_element(PRODUCT_SIZE_OPTIONS)
                     break
-                for _ in self.all_colors():
+                for _ in self.get_all_colors():
                     self.click_to_random_element(PRODUCT_COLOR_OPTIONS)
                     break
-                self.click_add_to_cart_btn()
+                self.click_add_to_cart()
         except TimeoutException:
             pass
