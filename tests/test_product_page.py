@@ -6,6 +6,20 @@ from base.base_test import BaseTest
 
 class TestProductPage(BaseTest):
     @allure.feature('Radiant Tee product page')
+    @allure.title("Adding the product to the comparison list")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-134')
+    def test_adding_the_product_to_the_comparison_list(self):
+        self.product_page.open()
+        self.product_page.click_add_to_compare_link()
+        assert self.product_page.check_message_that_product_added_to_the_comparison_list(), \
+            "Wrong message"
+        self.product_page.click_corporation_list_link()
+        assert self.corporation_list_page.check_url_is_(self.corporation_list_page.URL), \
+            "Wrong URL"
+        assert self.corporation_list_page.check_number_of_products_on_page_is_(1), \
+            "Must be one product on the page"
+
+    @allure.feature('Radiant Tee product page')
     @allure.title("Visibility of the text in more information block")
     @allure.link('https://pola-gor.atlassian.net/browse/LUM-140')
     def test_user_can_see_more_details_on_product_page(self):
@@ -23,6 +37,8 @@ class TestLoggedUserProductPage(BaseTest):
 
     @pytest.fixture(scope="function")
     def remove_products_from_corporation(self):
+        self.corporation_list_page.open()
+        self.corporation_list_page.remove_products()
         yield
         self.corporation_list_page.open()
         self.corporation_list_page.remove_products()
@@ -40,7 +56,6 @@ class TestLoggedUserProductPage(BaseTest):
     @allure.feature('Radiant Tee product page')
     @allure.title("Adding the product to the comparison list")
     @allure.link('https://pola-gor.atlassian.net/browse/LUM-134')
-    @pytest.mark.xfail
     def test_adding_the_product_to_the_comparison_list(self, user_login, remove_products_from_corporation):
         self.product_page.open()
         self.product_page.click_add_to_compare_link()
@@ -49,7 +64,7 @@ class TestLoggedUserProductPage(BaseTest):
         self.product_page.click_corporation_list_link()
         assert self.corporation_list_page.check_url_is_(self.corporation_list_page.URL), \
             "Wrong URL"
-        assert self.corporation_list_page.check_number_of_products_on_page() == 1, \
+        assert self.corporation_list_page.check_number_of_products_on_page_is_(1), \
             "Must be one product on the page"
 
     @allure.feature('Radiant Tee product page')

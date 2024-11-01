@@ -113,7 +113,7 @@ class ProductPage(BasePage):
     @allure.step("The message of success 'added to the comparison list' is displayed. ")
     def check_message_that_product_added_to_the_comparison_list(self):
         product_name = self.get_product_name()
-        self.check_element_visibility_(CORPORATION_MESSAGE)
+        self.check_page_loaded()
         success_text = self.get_text(CORPORATION_MESSAGE)
         return f'You added product {product_name} to the comparison list.' == success_text
 
