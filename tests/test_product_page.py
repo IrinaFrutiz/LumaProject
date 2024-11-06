@@ -28,6 +28,15 @@ class TestProductPage(BaseTest):
         assert self.product_page.check_more_information_text_clickable(), \
             "Text is not presence in more information block on product page"
 
+    @allure.feature('Radiant Tee product page')
+    @allure.title("Visibility of the text in Reviews block")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-139')
+    def test_user_can_see_reviews_on_product_page(self):
+        self.product_page.open()
+        self.product_page.click_reviews()
+        assert self.product_page.check_reviews_text_clickable(), \
+            "Text is not presence in reviews block on product page"
+
 
 class TestLoggedUserProductPage(BaseTest):
     @pytest.fixture(scope="function")
@@ -45,11 +54,15 @@ class TestLoggedUserProductPage(BaseTest):
 
     @pytest.fixture(scope="function")
     def remove_products_from_wishlist(self):
+        self.wish_list_page.open()
+        self.wish_list_page.remove_products()
         yield
+        self.wish_list_page.open()
         self.wish_list_page.remove_products()
 
     @pytest.fixture(scope="function")
     def remove_products_from_cart(self):
+        self.mini_cart_page.delete_all_product()
         yield
         self.mini_cart_page.delete_all_product()
 
@@ -112,6 +125,7 @@ class TestLoggedUserProductPage(BaseTest):
             f"Total price is not match with {product_price * qty} ({product_name}, {product_price}, {qty})"
         assert self.mini_cart_page.check_product_number_(qty), \
             f"Number of added {product_name} is not match with number in the cart {qty}"
+        self.mini_cart_page.click_cart()
 
     @allure.feature('Radiant Tee product page')
     @allure.title("Quantity of items added to cart")
@@ -123,7 +137,6 @@ class TestLoggedUserProductPage(BaseTest):
         self.basic_elements.check_cart_uploaded()
         assert self.basic_elements.check_products_numbers_in_cart_is_(qty), \
             f"Number of added product is not match with number {qty} in the mini cart"
-        self.basic_elements.click_cart()
 
     @allure.feature('Radiant Tee product page')
     @allure.title("Visibility of the text in more information block")
@@ -133,3 +146,12 @@ class TestLoggedUserProductPage(BaseTest):
         self.product_page.click_more_information()
         assert self.product_page.check_more_information_text_clickable(), \
             "Text is not presence in more information block on product page"
+
+    @allure.feature('Radiant Tee product page')
+    @allure.title("Visibility of the text in Reviews block")
+    @allure.link('https://pola-gor.atlassian.net/browse/LUM-139')
+    def test_user_can_see_reviews_on_product_page(self, user_login):
+        self.product_page.open()
+        self.product_page.click_reviews()
+        assert self.product_page.check_reviews_text_clickable(), \
+            "Text is not presence in reviews block on product page"

@@ -70,7 +70,7 @@ class BasePage:
 
     @allure.step("Get text and return it")
     def get_text(self, locator):
-        return self.check_element_visibility_(locator).text
+        return self.check_element_presence(locator).text
 
     @allure.step("Get list of text and return it")
     def get_all_text(self, locator):

@@ -1,8 +1,10 @@
 import allure
+from selenium.common import TimeoutException
 
 from pages.basic_elements import BasicElements
 
 NUMBER_ITEMS_IN_CART = ('css selector', 'span.count')
+EMPTY_CART = ('css selector', '.subtitle.empty')
 CART_SUBTOTAL = ('css selector', '.subtotal span.price')
 CART_PRODUCTS_NAMES = ('xpath',
                        '//ol[@id="mini-cart"]//a[contains(@data-bind, "name")][not(@class="product-item-photo")]')
@@ -39,7 +41,13 @@ class MiniCartPage(BasicElements):
 
     @allure.step("Delete all products from mini cart")
     def delete_all_product(self):
-        for button in self.find_all(BUTTON_DELETE):
-            button.click()
-            self.click_button(BUTTON_DELETE_ACCEPT)
+        try:
             self.check_cart_uploaded()
+        except TimeoutException:
+            pass
+        if self.get_products_numbers_in_cart() != '':
+            self.click_cart()
+            for button in self.find_all(BUTTON_DELETE):
+                button.click()
+                self.click_button(BUTTON_DELETE_ACCEPT)
+                self.check_cart_uploaded()

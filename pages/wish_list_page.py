@@ -1,4 +1,5 @@
 import allure
+from selenium.common import TimeoutException
 
 from base.base_page import BasePage
 from data.links import WISH_LIST_URL
@@ -34,12 +35,15 @@ class WishListPage(BasePage):
 
     @allure.step("Delete all products from user's wish list")
     def remove_products(self):
-        img_icons = self.check_all_visibility_(ALL_IMG_ICONS)
-        for id in range(len(img_icons)):
-            img_icon = self.find(ALL_IMG_ICONS)
-            delete_button = self.find(ALL_DELETE_BUTTONS)
-            self.action.move_to_element(img_icon)\
-                .move_to_element(delete_button)\
-                .click(delete_button).perform()
-            self.check_page_loaded()
+        try:
+            img_icons = self.check_all_visibility_(ALL_IMG_ICONS)
+            for id in range(len(img_icons)):
+                img_icon = self.find(ALL_IMG_ICONS)
+                delete_button = self.find(ALL_DELETE_BUTTONS)
+                self.action.move_to_element(img_icon)\
+                    .move_to_element(delete_button)\
+                    .click(delete_button).perform()
+                self.check_page_loaded()
+        except TimeoutException:
+            pass
 
