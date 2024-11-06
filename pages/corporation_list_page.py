@@ -19,6 +19,7 @@ class CorporationListPage(BasePage):
 
     @allure.step("Delete all products from Corporation List")
     def remove_products(self):
+        self.open()
         try:
             self.check_element_not_visible_(MSG_NO_ITEM)
             for button in self.find_all(ALL_REMOVE_PRODUCT):

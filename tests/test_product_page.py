@@ -46,18 +46,14 @@ class TestLoggedUserProductPage(BaseTest):
 
     @pytest.fixture(scope="function")
     def remove_products_from_corporation(self):
-        self.corporation_list_page.open()
         self.corporation_list_page.remove_products()
         yield
-        self.corporation_list_page.open()
         self.corporation_list_page.remove_products()
 
     @pytest.fixture(scope="function")
     def remove_products_from_wishlist(self):
-        self.wish_list_page.open()
         self.wish_list_page.remove_products()
         yield
-        self.wish_list_page.open()
         self.wish_list_page.remove_products()
 
     @pytest.fixture(scope="function")

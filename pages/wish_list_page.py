@@ -35,6 +35,7 @@ class WishListPage(BasePage):
 
     @allure.step("Delete all products from user's wish list")
     def remove_products(self):
+        self.open()
         try:
             img_icons = self.check_all_visibility_(ALL_IMG_ICONS)
             for id in range(len(img_icons)):
