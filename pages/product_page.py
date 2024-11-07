@@ -98,6 +98,10 @@ class ProductPage(BasePage):
     def click_more_information(self):
         self.click_button(BTN_MORE_INFORMATION)
 
+    @allure.step("Click to Reviews")
+    def click_reviews(self):
+        self.click_button(BTN_REVIEWS)
+
     @allure.step("Check product name is presence")
     def check_product_name_presence(self):
         return self.check_element_presence(PRODUCT_NAME) is not None
@@ -120,6 +124,11 @@ class ProductPage(BasePage):
     @allure.step("The text in more information block is presence")
     def check_more_information_text_clickable(self):
         return self.check_element_clickability_(MORE_INFORMATION_TEXT) is not None
+
+    @allure.step("The text in reviews block is presence")
+    def check_reviews_text_clickable(self):
+        self.hover(REVIEWS_TEXT)
+        return self.check_element_clickability_(REVIEWS_TEXT) is not None
 
     @allure.step("Check if product has size and color, choose random size and color and add to cart")
     def if_size_and_color_pick_random_size_and_color_add_to_cart(self):
