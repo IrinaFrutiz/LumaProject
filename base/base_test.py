@@ -4,6 +4,7 @@ from pages.login_page import LoginPage
 from pages.create_account_page import CreateAccountPage
 from pages.basic_elements import BasicElements
 from pages.footer_page import FooterPage
+from pages.men_page import MenPage
 from pages.privacy_policy_page import PrivacyPolicyPage
 from pages.product_page import ProductPage
 from pages.corporation_list_page import CorporationListPage
@@ -25,6 +26,7 @@ class BaseTest:
     cart_page: CartPage
     wish_list_page: WishListPage
     women_tops_trees_page: WomenTopsTreesPage
+    men_page: MenPage
     mini_cart_page: MiniCartPage
 
     @pytest.fixture(autouse=True)
@@ -41,4 +43,5 @@ class BaseTest:
         request.cls.cart_page = CartPage(browser)
         request.cls.wish_list_page = WishListPage(browser)
         request.cls.women_tops_trees_page = WomenTopsTreesPage(browser)
+        request.cls.men_page = MenPage(browser)
         request.cls.mini_cart_page = MiniCartPage(browser)

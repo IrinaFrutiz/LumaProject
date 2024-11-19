@@ -11,6 +11,7 @@ ARGUS_COLOR_TAG_GRAY = ('xpath', '(//li[@class="product-item"])[3]//div[@option-
 ARGUS_ADD_BTN = ('xpath', '(//button[@title="Add to Cart"])[3]')
 SUCCESS_MSG_ALERT = ('xpath', '//div[@role="alert"]')
 SUCCESS_MSG_TEXT = 'You added Argus All-Weather Tank to your shopping cart.'
+MEN_NAVIGATION_MENU_ITEM = ('xpath', '//*[@id="ui-id-5"]/span[2]')
 
 
 class MainPage(BasePage):
@@ -48,3 +49,7 @@ class MainPage(BasePage):
     @allure.step("Choose Argus Color Gray")
     def choose_argus_color_gray(self):
         self.find_argus_color_gray().click()
+
+    @allure.step("Click navigation menu item 'Men'")
+    def click_navigation_menu_item_men(self):
+        self.click_button(MEN_NAVIGATION_MENU_ITEM)
